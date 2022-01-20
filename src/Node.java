@@ -3,7 +3,7 @@ import java.util.List;
 
 public class Node {
 	private int data;
-	private List<Node> next;
+	public List<Node> next;
 
 	public Node(int data) {
 		this.data = data;
@@ -21,9 +21,12 @@ public class Node {
 	public void markAsNextNode(Node nextNode) {
 		if (!next.contains(nextNode))
 			next.add(nextNode);
+		else {
+			System.out.println("This node already has a next node!");
+		}
 	}
 
-	public List<Node> getForwardNodes() {
+	public List<Node> getNextList() {
 		return next;
 	}
 	

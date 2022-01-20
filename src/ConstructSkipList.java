@@ -15,6 +15,24 @@ public class ConstructSkipList {
 		int newNodeLevel = 0;
 		newNodeLevel = flipCoin(newNode);
 		
+		Node searchPointer = sentinel;
+
+		for (int i = highestLevel; i >= 0; i--) {
+			// walk down the level until it find a range
+			while (null != searchPointer.next.get(i)) {
+				// when at bottom level, i is always 0, needs to find the right node to stop
+				if (searchPointer.next.get(i).getData() > data ) {
+					break;
+				}
+				searchPointer = searchPointer.next.get(i);
+			}
+
+			if (i <= newNodeLevel) {
+				newNode.getNextList().set(i, searchPointer.next.get(i));
+				searchPointer.getNextList().set(i, newNode);
+			}
+		}
+		
 		Node head = sentinel;
 		
 //		sentinel.markAsNextNode(newNode);
@@ -24,7 +42,7 @@ public class ConstructSkipList {
 		
 	}
 
-	private int flipCoin(Node newNode) {
+	public int flipCoin(Node newNode) {
 		int tempLevel = 0;
 		
 		while (random.nextBoolean()) {
