@@ -3,10 +3,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Node {
-	private int data;
+	private Integer data;
 	public List<Node> next;
 
-	public Node(int data) {
+	public Node(Integer data) {
 		this.data = data;
 		next = new ArrayList<>();
 	}

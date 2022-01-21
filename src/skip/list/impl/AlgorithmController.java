@@ -7,7 +7,7 @@ public class AlgorithmController {
 		
 		ConstructSkipList skipTest = new ConstructSkipList();
 		
-		System.out.println(skipTest.flipCoin(new Node(0)));
+//		System.out.println(skipTest.flipCoin(new Node(0)));
 		
 	}
 
