@@ -1,3 +1,4 @@
+package skip.list.impl;
 
 public class AlgorithmController {
 
