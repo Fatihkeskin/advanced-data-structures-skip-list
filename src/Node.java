@@ -4,10 +4,12 @@ import java.util.List;
 public class Node {
 	private int data;
 	public List<Node> next;
+	
 
 	public Node(int data) {
 		this.data = data;
-		next = new ArrayList<>();
+		this.next = new ArrayList<Node>();
+		
 	}
 
 	public int getData() {
