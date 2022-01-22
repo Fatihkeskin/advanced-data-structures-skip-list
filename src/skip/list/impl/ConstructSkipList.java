@@ -1,3 +1,5 @@
+package skip.list.impl;
+
 import java.util.Random;
 
 public class ConstructSkipList {
