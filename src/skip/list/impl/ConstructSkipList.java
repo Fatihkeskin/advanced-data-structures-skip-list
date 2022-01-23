@@ -4,13 +4,17 @@ import java.util.Random;
 
 public class ConstructSkipList {
 
-	private int maxLevelOfSkipList;
-	private Node sentinel; // also known as head
-	private final Random random = new Random();
+	private int maxLevelOfSkipList;						// maximum level is defined at the constructor	
+	private Node sentinel; 								// also known as head
+	private final Random random = new Random();			// we will use for finding new node's level
+	private int size = 0;
 
 	public ConstructSkipList(int levelOfSkipList) {
+		// Define max level of the list
 		this.maxLevelOfSkipList = levelOfSkipList;
+		// Initialize the head node
 		this.sentinel = new Node(0);
+		// Initialize max levels from the sentinel
 		for (int i = 0; i < levelOfSkipList; i++) {
 			this.sentinel.next.add(null);
 		}
@@ -38,15 +42,10 @@ public class ConstructSkipList {
 	}
 
 	private void placeNode(Node newNode, int levelOfNewNode, Node searchPointer, int data) {
-
 		int counter = 0;
 		while (counter < maxLevelOfSkipList) {
-//			System.out.print("Traversing in sl.. counter: ");
-//			System.out.println(maxLevelOfSkipList-counter-1);
 			if (searchPointer.next.get(maxLevelOfSkipList - counter - 1) != null) {
-//				System.out.print("If next is not null");
 				if (searchPointer.next.get(maxLevelOfSkipList - counter - 1).getData() < data) {
-//					System.out.println(" and next is lower than our data, make pointer next");
 					searchPointer = searchPointer.next.get(maxLevelOfSkipList - counter - 1);
 					counter--;
 				} else {
@@ -54,16 +53,11 @@ public class ConstructSkipList {
 						updatePointers(searchPointer, newNode, counter);
 				}
 			} else if (maxLevelOfSkipList - counter - 1 < levelOfNewNode) {
-//				System.out.println("if we are on the last level that we can come");
-
-				System.out.println("the node's " + (maxLevelOfSkipList - counter - 1) + "th pointer to new point");
 				updatePointers(searchPointer, newNode, counter);
-
-				System.out.println("New node's pointer: " + searchPointer.getData());
-
 			}
 			counter++;
 		}
+		size++;
 	}
 
 	public void deleteNode(int data) {
@@ -79,22 +73,19 @@ public class ConstructSkipList {
 			}
 			counter++;
 		}
+		size--;
 	}
 	
 	public boolean search(int data) {
-		Integer position = null;
 		Node searchPointer = sentinel;
 		int counter = 0;
-		int iteration = 0;
 		while (counter < maxLevelOfSkipList) {
 			int currentLevel = maxLevelOfSkipList - counter - 1;
 			if (searchPointer.next.get(currentLevel) != null) {
 				if ( searchPointer.next.get(currentLevel).getData() == data) {
-//					position = iteration + 1;
 					return true;
 				} else if (searchPointer.next.get(currentLevel) != null && searchPointer.next.get(currentLevel).getData() < data) {
 					searchPointer = searchPointer.next.get(currentLevel);
-//					iteration++;
 					counter--;
 				}
 			}	
@@ -119,20 +110,47 @@ public class ConstructSkipList {
 		return tempLevel;
 	}
 
-	public void printSkipList() {
-		System.out.println(sentinel.getData() + " " + sentinel.next.get(0).getData() + " "
-				+ sentinel.next.get(0).next.get(0).getData() + " "
-				+ sentinel.next.get(0).next.get(0).next.get(0).getData() + " "
-				+ sentinel.next.get(0).next.get(0).next.get(0).next.get(0).getData() + " "
-				+ sentinel.next.get(0).next.get(0).next.get(0).next.get(0).next.get(0).getData() + " "
-				+ sentinel.next.get(0).next.get(0).next.get(0).next.get(0).next.get(0).next.get(0).getData() + " "
-//				+ sentinel.next.get(0).next.get(0).next.get(0).next.get(0).next.get(0).next.get(0).next.get(0).getData()
-//				+ " "
-//				+ sentinel.next.get(0).next.get(0).next.get(0).next.get(0).next.get(0).next.get(0).next.get(0).next
-//						.get(0).getData()
-//				+ " "
-//				+ sentinel.next.get(0).next.get(0).next.get(0).next.get(0).next.get(0).next.get(0).next.get(0).next
-//						.get(0).getData()
-				);
+	public void printListNoIterate() {
+		int level = maxLevelOfSkipList-1;
+		do {
+			Node searchPointer = sentinel;
+			System.out.print("[" + level + "]" + " -> ");
+			while (searchPointer.next.get(level) != null) {
+				searchPointer = searchPointer.next.get(level);
+				System.out.print(searchPointer.getData() + " -> ");
+			}
+			System.out.println("null");
+			level--;
+		} while(level > -1);
+	}
+	
+	public void printSkipListWithSize() {
+		int level = maxLevelOfSkipList-1;
+		for (int i = level; level > -1; level--) {
+			Node searchPointer = sentinel;
+			int sizeOfList = size;
+			System.out.print("[" + level + "]" + " -> ");
+			for (; sizeOfList > 0; sizeOfList-- ) {
+				if(searchPointer.next.get(level) != null) {
+					sizeOfList = insertArrows(searchPointer, searchPointer.getData(), sizeOfList);
+					searchPointer = searchPointer.next.get(level);
+					System.out.print(searchPointer.getData());
+				} else {
+					System.out.print(" -> ");
+				}
+			}
+			System.out.print("null");
+			System.out.println();
+		}
+	}
+
+	private int insertArrows(Node currentNode, int data, int sizeOfList) {
+		Node searchPointer = sentinel;
+		while (!currentNode.next.get(0).getData().equals(data)) {
+			currentNode = currentNode.next.get(0);
+			System.out.print(" -> ");
+			sizeOfList--;
+		}
+		return sizeOfList;
 	}
 }

@@ -13,7 +13,7 @@ public class Node {
 		
 	}
 
-	public int getData() {
+	public Integer getData() {
 		return data;
 	}
 
