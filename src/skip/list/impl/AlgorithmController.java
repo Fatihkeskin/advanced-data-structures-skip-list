@@ -7,7 +7,7 @@ public class AlgorithmController {
 
 	public static void main(String[] args) {
 		
-		ConstructSkipList skipTest = new ConstructSkipList(10);
+		SimpleSkipList skipTest = new SimpleSkipList(10);
 		Random random = new Random();
 		
 		skipTest.addNodeToList(20);

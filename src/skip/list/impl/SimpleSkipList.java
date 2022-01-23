@@ -2,14 +2,14 @@ package skip.list.impl;
 
 import java.util.Random;
 
-public class ConstructSkipList {
+public class SimpleSkipList {
 
 	private int maxLevelOfSkipList;						// maximum level is defined at the constructor	
 	private Node sentinel; 								// also known as head
 	private final Random random = new Random();			// we will use for finding new node's level
 	private int size = 0;
 
-	public ConstructSkipList(int levelOfSkipList) {
+	public SimpleSkipList(int levelOfSkipList) {
 		// Define max level of the list
 		this.maxLevelOfSkipList = levelOfSkipList;
 		// Initialize the head node
