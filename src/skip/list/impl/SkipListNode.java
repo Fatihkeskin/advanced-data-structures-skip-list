@@ -2,14 +2,14 @@ package skip.list.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Node {
+public class SkipListNode {
 	private Integer data;
-	public List<Node> next;
+	public List<SkipListNode> next;
 	
 
-	public Node(Integer data) {
+	public SkipListNode(Integer data) {
 		this.data = data;
-		this.next = new ArrayList<Node>();
+		this.next = new ArrayList<SkipListNode>();
 		
 	}
 
@@ -21,7 +21,7 @@ public class Node {
 		this.data = data;
 	}
 	
-	public void markAsNextNode(Node nextNode) {
+	public void markAsNextNode(SkipListNode nextNode) {
 		if (!next.contains(nextNode))
 			next.add(nextNode);
 		else {
@@ -29,7 +29,7 @@ public class Node {
 		}
 	}
 
-	public List<Node> getNextList() {
+	public List<SkipListNode> getNextList() {
 		return next;
 	}
 	
